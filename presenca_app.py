@@ -11,7 +11,7 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 df = conn.read(
     worksheet="Página1",
     usecols=list(range(3)),
-    ttl=5
+    ttl=0
 )
 df.dropna(how='all', inplace=True)
 
@@ -19,7 +19,7 @@ df.dropna(how='all', inplace=True)
 df_atletas = conn.read(
     worksheet="Página2",
     usecols=list(range(1)),
-    ttl=5
+    ttl=0
 )
 df_atletas.dropna(how='all', inplace=True)
 
