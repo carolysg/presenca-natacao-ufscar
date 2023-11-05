@@ -56,3 +56,5 @@ with st.form(key="presenca"):
             df_final = pd.concat([df, atleta_data], ignore_index=True)
             conn.update(worksheet="Página1", data=df_final)
             st.success("Sua presença foi registrada!")
+    
+    st.dataframe(df)
