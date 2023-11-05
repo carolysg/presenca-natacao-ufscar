@@ -36,25 +36,52 @@ with st.form(key="presenca"):
 
     submit = st.form_submit_button(label="Enviar")
 
+    # if submit:
+    #     if not data or not nome or not senha:
+    #         st.warning("Preencha todos os dados!")
+    #         st.stop()
+    #     elif datetime.strftime(data, "%d/%m/%Y") in df[df['Nome']==nome]['Data'].values:
+    #         st.warning("Você já preencheu o formulário hoje!")
+    #         st.stop()
+    #     else:
+    #         atleta_data = pd.DataFrame(
+    #             [
+    #                 {
+    #                     "Data": datetime.strftime(data, "%d/%m/%Y"),
+    #                     "Nome": nome,
+    #                     "Senha do dia": senha
+    #                 }
+    #             ]
+    #         )
+    #         df_final = pd.concat([df, atleta_data], ignore_index=True)
+    #         conn.update(worksheet="Página1", data=df_final)
+    #         st.success("Sua presença foi registrada!")
+
     if submit:
         if not data or not nome or not senha:
             st.warning("Preencha todos os dados!")
             st.stop()
-        elif datetime.strftime(data, "%d/%m/%Y") in df[df['Nome']==nome]['Data'].values:
-            st.warning("Você já preencheu o formulário hoje!")
-            st.stop()
         else:
-            atleta_data = pd.DataFrame(
-                [
-                    {
-                        "Data": datetime.strftime(data, "%d/%m/%Y"),
-                        "Nome": nome,
-                        "Senha do dia": senha
-                    }
-                ]
+            # Ler a planilha atualizada
+            df = conn.read(
+                worksheet="Página1",
+                usecols=list(range(3))
             )
-            df_final = pd.concat([df, atleta_data], ignore_index=True)
-            conn.update(worksheet="Página1", data=df_final)
-            st.success("Sua presença foi registrada!")
-    
-    st.dataframe(df)
+            df.dropna(how='all', inplace=True)
+
+            if datetime.strftime(data, "%d/%m/%Y") in df[df['Nome'] == nome]['Data'].values:
+                st.warning("Você já preencheu o formulário hoje!")
+                st.stop()
+            else:
+                atleta_data = pd.DataFrame(
+                    [
+                        {
+                            "Data": datetime.strftime(data, "%d/%m/%Y"),
+                            "Nome": nome,
+                            "Senha do dia": senha
+                        }
+                    ]
+                )
+                df_final = pd.concat([df, atleta_data], ignore_index=True)
+                conn.update(worksheet="Página1", data=df_final)
+                st.success("Sua presença foi registrada!")
