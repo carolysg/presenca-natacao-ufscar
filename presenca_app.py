@@ -63,6 +63,7 @@ with st.form(key="presenca"):
             st.stop()
         else:
             # Ler a planilha atualizada
+            conn = st.connection("gsheets", type=GSheetsConnection)
             df = conn.read(
                 worksheet="Página1",
                 usecols=list(range(3))
@@ -83,6 +84,5 @@ with st.form(key="presenca"):
                     ]
                 )
                 df_final = pd.concat([df, atleta_data], ignore_index=True)
-                df = df_final
                 conn.update(worksheet="Página1", data=df_final)
                 st.success("Sua presença foi registrada!")
