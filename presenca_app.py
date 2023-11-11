@@ -59,32 +59,6 @@ with st.form(key="presenca"):
             conn.update(worksheet="Página1", data=df_final)
             st.success("Sua presença foi registrada!")
 
-    # if submit:
-    #     if not data or not nome or not senha:
-    #         st.warning("Preencha todos os dados!")
-    #         st.stop()
-    #     else:
-    #         # Ler a planilha atualizada
-    #         conn = st.connection("gsheets", type=GSheetsConnection)
-    #         df = conn.read(
-    #             worksheet="Página1",
-    #             usecols=list(range(3))
-    #         )
-    #         df.dropna(how='all', inplace=True)
-
-    #         if datetime.strftime(data, "%d/%m/%Y") in df[df['Nome'] == nome]['Data'].values:
-    #             st.warning("Você já preencheu o formulário hoje!")
-    #             st.stop()
-    #         else:
-    #             atleta_data = pd.DataFrame(
-    #                 [
-    #                     {
-    #                         "Data": datetime.strftime(data, "%d/%m/%Y"),
-    #                         "Nome": nome,
-    #                         "Senha do dia": senha
-    #                     }
-    #                 ]
-    #             )
-    #             df_final = pd.concat([df, atleta_data], ignore_index=True)
-    #             conn.update(worksheet="Página1", data=df_final)
-    #             st.success("Sua presença foi registrada!")
+st.markdown('#')
+st.markdown('#')
+st.text('Criado por:\nCarol Yumi e Gui Messias')
