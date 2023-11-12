@@ -59,6 +59,4 @@ with st.form(key="presenca"):
             conn.update(worksheet="Página1", data=df_final)
             st.success("Sua presença foi registrada!")
 
-st.markdown('#')
-st.markdown('#')
 st.text('Criado por:\nCarol Yumi e Gui Messias')
